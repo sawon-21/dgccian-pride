@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DGCCian PRIDE 🤍</title>
+    <!-- Google Fonts for Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        /* General Styles */
+        body {
+            background: #0a192f;
+            /* Dark blue background */
+            color: #ccd6f6;
+            /* Light text color */
+            font-family: 'Poppins', sans-serif;
+            /* Poppins font */
+            overflow-x: hidden;
+            /* Prevent horizontal scroll */
+            line-height: 1.6;
+            /* Line spacing */
+        }
+
+        /* Container Styles */
+        .container {
+            padding: 2rem;
+            /* Padding for the container */
+        }
+
+        /* Header Styles */
+        .team-logo {
+            width: 120px;
+            /* Logo size */
+            height: 120px;
+            border: 3px solid #64ffda;
+            /* Neon green border */
+            padding: 5px;
+            border-radius: 50%;
+            /* Circular logo */
+            margin-bottom: 1rem;
+            /* Spacing below logo */
+            object-fit: cover;
+            /* Ensure image fits */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            /* Smooth hover effect */
+        }
+
+        .team-logo:hover {
+            transform: rotate(360deg) scale(1.1);
+            /* Rotate and scale on hover */
+            box-shadow: 0 0 20px rgba(100, 255, 218, 0.7);
+            /* Glow effect */
+        }
+
+        .display-4 {
+            color: #64ffda;
+            /* Neon green text */
+            font-weight: bold;
+            /* Bold font */
+            margin-bottom: 0.5rem;
+            /* Spacing below title */
+        }
+
+        .lead {
+            color: #8892b0;
+            /* Light gray text */
+            font-size: 1.1rem;
+            /* Slightly larger font */
+            margin-bottom: 2rem;
+            /* Spacing below subtitle */
+        }
+
+        /* Search Box Styles */
+        .search-box {
+            position: relative;
+            /* Relative positioning */
+            max-width: 500px;
+            /* Max width for search box */
+            margin: 0 auto 2rem;
+            /* Center align */
+        }
+
+        .search-box input {
+            padding-right: 3.5rem;
+            /* Padding for search icon */
+            border-radius: 25px;
+            /* Rounded corners */
+        }
+
+        .search-box i {
+            position: absolute;
+            /* Absolute positioning for icon */
+            right: 1rem;
+            /* Position from right */
+            top: 50%;
+            /* Center vertically */
+            transform: translateY(-50%);
+            /* Center vertically */
+            color: #64ffda;
+            /* Neon green icon */
+            font-size: 1.2rem;
+            /* Icon size */
+            pointer-events: none;
+            /* Prevent clicking on icon */
+        }
+
+        /* Card Styles */
+        .card {
+            border: none;
+            /* No border */
+            border-radius: 15px;
+            /* Rounded corners */
+            background: linear-gradient(135deg, #2a2a4a 0%, #0a192f 100%);
+            /* Gradient background */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            /* Smooth hover effect */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            /* Shadow effect */
+            opacity: 0;
+            /* Initially hidden */
+            transform: translateY(20px);
+            /* Initial position */
+            animation: fadeInUp 0.5s ease forwards;
+            /* Fade-in animation */
+            margin-bottom: 1.5rem;
+            /* Spacing below cards */
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                /* Fully visible */
+                transform: translateY(0);
+                /* Move to original position */
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            /* Lift card on hover */
+            box-shadow: 0 8px 20px rgba(100, 255, 218, 0.3);
+            /* Glow effect */
+        }
+
+        .card img {
+            border-radius: 50%;
+            /* Circular image */
+            border: 2px solid #64ffda;
+            /* Neon green border */
+            padding: 3px;
+            /* Padding around image */
+            width: 160px;
+            /* Image size */
+            height: 160px;
+            object-fit: cover;
+            /* Ensure image fits */
+            transition: transform 0.3s ease-in-out;
+            /* Smooth hover effect */
+        }
+
+        .card img:hover {
+            transform: scale(1.1);
+            /* Scale image on hover */
+        }
+
+        .card-body {
+            display: flex;
+            /* Flexbox layout */
+            align-items: center;
+            /* Center align items */
+            padding: 1.25rem;
+            /* Padding inside card */
+        }
+
+        .card-title {
+            color: #64ffda;
+            /* Neon green text */
+            font-weight: 600;
+            /* Semi-bold font */
+            margin-bottom: 0.25rem;
+            /* Spacing below title */
+            transition: color 0.3s ease;
+            /* Smooth hover effect */
+        }
+
+        .card-title:hover {
+            color: #4fd1c5;
+            /* Lighter green on hover */
+        }
+
+        .card-text {
+            color: #8892b0;
+            /* Light gray text */
+            font-size: 0.9rem;
+            /* Smaller font */
+        }
+
+        /* Add Icon Styles */
+        .add-icon {
+            position: fixed;
+            /* Fixed position */
+            top: 20px;
+            /* Position from top */
+            right: 20px;
+            /* Position from right */
+            color: #64ffda;
+            /* Neon green icon */
+            font-size: 32px;
+            /* Icon size */
+            transition: transform 0.3s ease, color 0.3s ease;
+            /* Smooth hover effect */
+            cursor: pointer;
+            /* Pointer cursor */
+            z-index: 1000;
+            /* Ensure icon is on top */
+        }
+
+        .add-icon:hover {
+            transform: rotate(90deg);
+            /* Rotate icon on hover */
+            color: #4fd1c5;
+            /* Lighter green on hover */
+        }
+
+        /* Counter Styles */
+        .member-counter {
+            position: fixed;
+            /* Fixed position */
+            top: 20px;
+            /* Position from top */
+            left: 33px;
+            /* Position from left */
+            color: #64ffda;
+            /* Neon green color */
+            font-size: 1.2rem;
+            /* Adjust font size */
+
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            background: #0a192f;
+            /* Dark blue background */
+            border: 1px solid #233554;
+            /* Border color */
+            border-radius: 10px;
+            /* Rounded corners */
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #233554;
+            /* Border below header */
+        }
+
+        .modal-title {
+            color: #64ffda;
+            /* Neon green text */
+        }
+
+        .modal-body {
+            color: #ccd6f6;
+            /* Light text color */
+        }
+
+        .modal-footer {
+            border-top: 1px solid #233554;
+            /* Border above footer */
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: #64ffda;
+            /* Neon green background */
+            color: #0a192f;
+            /* Dark text color */
+            border: none;
+            /* No border */
+            font-weight: 500;
+            /* Medium font weight */
+            padding: 0.75rem 1.5rem;
+            /* Button padding */
+            border-radius: 25px;
+            /* Rounded corners */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            /* Smooth hover effect */
+        }
+
+        .btn-primary:hover {
+            background: #52d1b4;
+            /* Lighter green on hover */
+            transform: translateY(-2px);
+            /* Lift button on hover */
+        }
+
+        .btn-close {
+            background-color: #ccd6f6;
+            /* Light close button */
+            opacity: 0.5;
+            /* Semi-transparent */
+        }
+
+        .btn-close:hover {
+            opacity: 0.8;
+            /* Less transparent on hover */
+        }
+
+        /* Form Styles */
+        .form-control {
+            background: #112240;
+            /* Dark input background */
+            border: 1px solid #233554;
+            /* Border color */
+            color: #ccd6f6;
+            /* Light text color */
+            border-radius: 15px;
+            /* Rounded corners */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            /* Smooth focus effect */
+        }
+
+        .form-control:focus {
+            background: #112240;
+            /* Dark input background */
+            border-color: #64ffda;
+            /* Neon green border */
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2);
+            /* Glow effect */
+            color: #ccd6f6;
+            /* Light text color */
+        }
+
+        .form-label {
+            color: #64ffda;
+            /* Neon green text */
+            margin-bottom: 0.5rem;
+            /* Spacing below label */
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .card-body {
+                flex-direction: column;
+                /* Stack items vertically */
+                text-align: center;
+                /* Center align text */
+            }
+
+            .card-body img {
+                margin-bottom: 1rem;
+                /* Spacing below image */
+            }
+
+            .search-box {
+                margin: 0 auto 1.5rem;
+                /* Center align search box */
+            }
+        }
+
+        /* Subtle background animation */
+        body::before {
+            content: '';
+            /* Pseudo-element */
+            position: fixed;
+            /* Fixed position */
+            top: 0;
+            /* Position from top */
+            left: 0;
+            /* Position from left */
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            background: linear-gradient(45deg, rgba(100, 255, 218, 0.05), transparent);
+            /* Gradient background */
+            z-index: -1;
+            /* Behind other content */
+            animation: subtleBackground 10s linear infinite;
+            /* Continuous animation */
+        }
+
+        @keyframes subtleBackground {
+            0% {
+                background-position: 0 0;
+                /* Start position */
+            }
+
+            100% {
+                background-position: 100% 100%;
+                /* End position */
+            }
+        }
+
+        /* Custom Button Styles */
+        .custom-btn-group {
+            margin-bottom: 1rem;
+            /* Spacing below buttons */
+        }
+
+        .custom-btn {
+            background: rgba(100, 255, 218, 0.1);
+            /* Semi-transparent neon green background */
+            color: #64ffda;
+            /* Neon green text */
+            border: none;
+            /* No border */
+            padding: 0.5rem 1rem;
+            /* Button padding */
+            margin: 0 0.5rem;
+            /* Spacing between buttons */
+            border-radius: 20px;
+            /* Rounded corners */
+            cursor: pointer;
+            /* Pointer cursor */
+            transition: background-color 0.3s ease, color 0.3s ease;
+            /* Smooth hover effect */
+            font-size: 0.9rem;
+            /* Smaller font */
+        }
+
+        .custom-btn:hover {
+            background: rgba(100, 255, 218, 0.3);
+            /* Less transparent on hover */
+            color: #0a192f;
+            /* Dark text on hover */
+        }
+
+        .custom-btn.active {
+            background: #64ffda;
+            /* Solid neon green background for active button */
+            color: #0a192f;
+            /* Dark text for active button */
+        }
+
+        small a {
+            outline: none;
+            color: #fff;
+            font-size: 5px;
+        }
+
+        /* Loading Overlay Styles */
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 25, 47, 0.8);
+            /* Semi-transparent dark background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            /* Ensure it's on top */
+        }
+
+        .loader {
+            border: 8px solid #233554;
+            /* Darker border */
+            border-top: 8px solid #64ffda;
+            /* Neon green border top */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay">
+        <div class="loader"></div>
+    </div>
+
+    <div class="container text-center py-5 position-relative">
+        <!-- Member Counter -->
+        <div class="member-counter" id="memberCounter">
+            <i class="fas fa-user-check"></i>
+
+        </div>
+        <!-- Add Member Icon -->
+        <i class="fas fa-plus add-icon" onclick="showAddModal()"></i>
+        <!-- Team Logo -->
+        <img alt="Team Logo" class="team-logo" src="https://i.postimg.cc/q7d8ybfT/FB-IMG-1742751213665.jpg">
+        <!-- Team Name -->
+        <h1 class="display-4 fw-bold mb-3" style="color: #64ffda;">DGCCian PRIDE <i class="fas fa-heart"></i>  </h1>
+        <h3>HSC - 2024</h3>
+        <!-- Team Tagline -->
+        <p class="lead mb-4" style="color: #8892b0;">🧪 You're a beta tester</p>
+        <small><a href="https://www.instagram.com/mehedi_al_hasan_sawon_21?igsh=MXQ4cW1vYzE5aDgy"><i
+                        class="fab fa-instagram"></i> mehedi_al_hasan_sawon_21</a></small> <br>
+        <!-- Search Box -->
+        <div class="search-box">
+            <input class="form-control ps-4 pe-5" id="searchInput" onkeyup="searchMembers()"
+                placeholder="Search..." type="text">
+            <i class="fas fa-search"></i>
+        </div>
+
+        <!-- Custom Search Buttons -->
+        <div class="custom-btn-group">
+            <button class="custom-btn" data-filter="Engineering"
+                onclick="filterMembers('Engineering')">Engineering
+                <span id="engineeringCount"></span></button>
+            <button class="custom-btn" data-filter="Medical" onclick="filterMembers('Medical')">Medical <span
+                    id="medicalCount"></span></button>
+            <button class="custom-btn" data-filter="University"
+                onclick="filterMembers('University')">University <span id="universityCount"></span></button>
+        </div>
+
+        <!-- Members List -->
+        <div class="row justify-content-center" id="membersList">
+            <!-- Existing members will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Details Modal -->
+    <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h3>DGCCian PRIDE <i class="fas fa-heart"></i></h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img alt="User profile picture" class="img-fluid  mb-3" id="modalImage" src=""
+                        style="width: 250px; height: 250px; object-fit: cover;"> <hr>
+                     
+                                     <h3 class="modal-title" id="detailsModalLabel"></h3>
+                    <h4 id="modalUniversity"></h4> <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addModalLabel">I'm DGCCian PRIDE</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addMemberForm">
+                        <div class="mb-3">
+                            <label class="form-label" for="username"><i class="fas fa-user"></i> Name</label>
+                            <input class="form-control" id="username" type="text" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="university"><i class="fas fa-university"></i>
+                                University (capital latter) </label>
+                            <input class="form-control" id="university" type="text" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="profilePicture"> <i class="fas fa-camera"></i> Profile
+                                Picture URL ☞
+                                <a href="url.gif" style="color:yellow"><i class="fas fa-eye"></i> <a
+                                        href="https://postimages.org/"><mark>Create URL</mark></a></label>
+                            <input class="form-control" id="profilePicture" type="text" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Add </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase and Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, onValue, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA3eq7s6UvWPxlT05fXXesVpeSh1KnURyA",
+            authDomain: "ssc22-4f7ae.firebaseapp.com",
+            databaseURL: "https://ssc22-4f7ae-default-rtdb.firebaseio.com",
+            projectId: "ssc22-4f7ae",
+            storageBucket: "ssc22-4f7ae.firebasestorage.app",
+            messagingSenderId: "355526890032",
+            appId: "1:355526890032:web:6a19c027f419f54d75d3f5",
+            measurementId: "G-GMHS7794LY"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app); // Initialize Realtime Database
+        const membersRef = ref(database, 'members'); // Reference to the "members" node
+
+        let memberCount = 0; // Initialize member count
+        let allMembers = {}; // Store all members
+        let activeFilter = null; // Track the active filter
+
+
+        // Function to update the member counter
+        function updateMemberCounter() {
+            const counterElement = document.getElementById('memberCounter');
+            counterElement.innerHTML = `<i class="fas fa-user-check"></i>  ${memberCount}`;
+        }
+
+
+        // Function to show member details in a modal
+        window.showDetailsModal = function (username, university, src) {
+            const modalTitle = document.getElementById('detailsModalLabel');
+            const modalImage = document.getElementById('modalImage');
+            const modalUniversity = document.getElementById('modalUniversity');
+
+            modalTitle.textContent = username;
+            modalImage.src = src;
+            modalUniversity.textContent = `University: ${university}`;
+
+            const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+            detailsModal.show();
+        }
+
+        // Function to show the "Add Member" modal
+        window.showAddModal = function () {
+            const addModal = new bootstrap.Modal(document.getElementById('addModal'));
+            addModal.show();
+        }
+
+        // Function to search members
+        window.searchMembers = function () {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            filterAndRenderMembers(filter);
+        }
+
+        // Function to filter members based on category
+        window.filterMembers = function (category) {
+            // Reset active state for all buttons
+            document.querySelectorAll('.custom-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Set active state for the clicked button
+            const button = document.querySelector(`.custom-btn[data-filter="${category}"]`);
+            if (button) {
+                button.classList.add('active');
+            }
+
+            activeFilter = category; // Update active filter
+
+            filterAndRenderMembers(); // Apply filtering
+        }
+
+        // Centralized function to filter and render members
+        function filterAndRenderMembers(searchText = '') {
+            const membersList = document.getElementById('membersList');
+            membersList.innerHTML = ''; // Clear existing content
+
+            let filteredMembers = Object.keys(allMembers).filter(key => {
+                const member = allMembers[key];
+                const username = member.username.toLowerCase();
+                const university = member.university.toLowerCase();
+
+                const searchTextMatch = searchText ? (username.includes(searchText) || university.includes(searchText)) : true;
+                let categoryMatch = true;
+
+                if (activeFilter) {
+                    if (activeFilter === 'Engineering') {
+                        categoryMatch = ['engineer', 'engineering', 'buet', 'cuet', 'kuet', 'ruet'].some(keyword => university.includes(keyword));
+                    } else if (activeFilter === 'Medical') {
+                        categoryMatch = university.includes('medical');
+                    }
+                    else if (activeFilter === 'University') {
+                        categoryMatch = !(['engineer', 'engineering', 'buet', 'cuet', 'kuet', 'ruet'].some(keyword => university.includes(keyword)) || university.includes('medical'));
+                    }
+                }
+
+                return searchTextMatch && categoryMatch;
+            }).map(key => allMembers[key]);
+
+            // Render the filtered members
+            renderMemberList(filteredMembers);
+        }
+
+        // Function to render members from Firebase
+        function renderMembers() {
+            onValue(membersRef, (snapshot) => {
+                allMembers = snapshot.val() || {}; // Store all members in allMembers object
+                const memberKeys = Object.keys(allMembers).reverse(); // Reverse to show latest first
+
+                memberCount = memberKeys.length; // Update member count
+                updateMemberCounter(); // Update the counter display
+
+                // Count members in each category
+                const engineeringCount = memberKeys.filter(key => ['engineer', 'engineering', 'buet', 'cuet', 'kuet', 'ruet'].some(keyword => allMembers[key].university.toLowerCase().includes(keyword))).length;
+                const medicalCount = memberKeys.filter(key => allMembers[key].university.toLowerCase().includes('medical')).length;
+                const universityCount = memberKeys.filter(key => !(['engineer', 'engineering', 'buet', 'cuet', 'kuet', 'ruet'].some(keyword => allMembers[key].university.toLowerCase().includes(keyword)) || allMembers[key].university.toLowerCase().includes('medical'))).length;
+
+                // Update category counts in the UI
+                document.getElementById('engineeringCount').textContent = `(${engineeringCount})`;
+                document.getElementById('medicalCount').textContent = `(${medicalCount})`;
+                document.getElementById('universityCount').textContent = `(${universityCount})`;
+
+
+                filterAndRenderMembers(); // Initial render of all members
+
+                // Hide loading overlay after data is rendered
+                document.getElementById('loadingOverlay').style.display = 'none';
+            });
+        }
+
+
+        function renderMemberList(members) {
+            const membersList = document.getElementById('membersList');
+            membersList.innerHTML = '';
+
+            members.forEach(member => {
+                const newMemberCard = `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card mb-3 member-card">
+                            <div class="card-body" onclick="showDetailsModal('${member.username}', '${member.university}', '${member.profilePicture}')">
+                                <img src="${member.profilePicture}" alt="User profile picture" class="img-fluid">
+                                <div class="text-start">
+                                    <h4 class="card-title mb-0">${member.username}</h4>
+                                    <h5 class="card-text">${member.university}</h5> <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                membersList.insertAdjacentHTML('beforeend', newMemberCard);
+            });
+        }
+
+
+        // Add a new member to Firebase
+        document.getElementById('addMemberForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const university = document.getElementById('university').value;
+            const profilePicture = document.getElementById('profilePicture').value;
+
+            const newMember = {
+                username,
+                university,
+                profilePicture,
+            };
+
+            // Push new member to Firebase
+            push(membersRef, newMember);
+
+            // Hide the modal and reset the form
+            const addModal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
+            addModal.hide();
+            document.getElementById('addMemberForm').reset();
+        });
+
+        // Initial render
+        renderMembers();
+
+        // Add floating animation to logo
+        const logo = document.querySelector('.team-logo');
+        function floatLogo() {
+            logo.style.transform = `translateY(${Math.sin(Date.now() / 500) * 5}px)`;
+            requestAnimationFrame(floatLogo);
+        }
+        floatLogo();
+    </script>
+</body>
+
+</html>
