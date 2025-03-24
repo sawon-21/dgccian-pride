@@ -479,6 +479,190 @@
                 transform: rotate(360deg);
             }
         }
+
+        /* Popup Background */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        /* Popup Content */
+        .popup-content {
+            font-family: "Caudex", serif;
+            background: #1A1E26;
+            padding: 2px;
+            border-radius: 15px;
+            text-align: center;
+            width: 90%;
+            max-width: 650px;
+            position: relative;
+            animation: fadeIn 0.3s ease-in-out;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.4);
+            border: 1px solid #374151;
+        }
+
+        /* Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 42px;
+            color: #E74C3C;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close:hover {
+            color: #F39C12;
+        }
+
+        /* Comments Section */
+        #comments {
+            max-height: 500px;
+            overflow-y: auto;
+            text-align: left;
+            margin-bottom: 5px;
+            padding: 3px;
+            background: #232A35;
+            border-radius: 12px;
+            border: 1px solid #3C4858;
+        }
+
+        /* Individual Comment */
+        .comment-box {
+            background: linear-gradient(120deg, #2C3441, #3C4655);
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border-left: 5px solid #F39C12;
+            color: #EAECEF;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        /* Comment Name and Date */
+        .comment-box strong {
+            color: #FFD700;
+            font-size: 14px;
+        }
+
+        .comment-date {
+            font-size: 8px;
+            color: #B0BEC5;
+            margin-left: 10px;
+        }
+
+        /* Replies Section */
+        .reply-box {
+            background: linear-gradient(120deg, #3A4453, #4A5568);
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 12px;
+            margin-left: 30px;
+            margin-top: 8px;
+            border-left: 4px solid #305CDE;
+            color: #DEA193;
+            position: relative;
+        }
+
+        /* Reply Name */
+        .reply-box strong {
+            color: #90D5FF;
+        }
+
+        /* Comment Input */
+        #comment-input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #546E7A;
+            border-radius: 8px;
+            background: #232A35;
+            color: #EAECEF;
+            font-size: 16px;
+        }
+
+        #comment-input:focus {
+            border-color: #F39C12;
+            outline: none;
+        }
+
+        /* Submit Button */
+        #submit-comment {
+            width: 100%;
+            padding: 5px;
+            background: #F39C12;
+            color: #1A1E26;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        #submit-comment:hover {
+            background: #FFD700;
+            color: #1A1E26;
+        }
+
+        /* Mobile Optimization */
+        @media screen and (max-width: 600px) {
+            .popup-content {
+                width: 95%;
+                max-width: 350px auto;
+            }
+
+            .comment-box {
+                font-size: 14px;
+            }
+        }
+
+        /* Smooth Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Custom CSS for floating icon */
+        .floating-messenger {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+        }
+
+        .floating-messenger a {
+            font-size: 20px;
+            background-color: gold;
+            /* Facebook Messenger blue */
+            color: black;
+            border-radius: 50%;
+            padding: 9px;
+            box-shadow: 0 4px 7px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating-messenger a:hover {
+            background-color: #006bb3;
+        }
     </style>
 </head>
 
@@ -500,7 +684,7 @@
         <!-- Team Logo -->
         <img alt="Team Logo" class="team-logo" src="https://i.postimg.cc/q7d8ybfT/FB-IMG-1742751213665.jpg">
         <!-- Team Name -->
-        <h1 class="display-4 fw-bold mb-3" style="color: #64ffda;">DGCCian PRIDE <i class="fas fa-heart"></i>  </h1>
+        <h1 class="display-4 fw-bold mb-3" style="color: #64ffda;">DGCCian PRIDE <i class="fas fa-heart"></i> </h1>
         <h3>HSC - 2024</h3>
         <!-- Team Tagline -->
         <p class="lead mb-4" style="color: #8892b0;">🧪 You're a beta tester</p>
@@ -515,6 +699,9 @@
 
         <!-- Custom Search Buttons -->
         <div class="custom-btn-group">
+            <button class="custom-btn" data-filter="All" onclick="filterMembers('All')">
+                All <span id="allCount"></span>
+            </button>
             <button class="custom-btn" data-filter="Engineering"
                 onclick="filterMembers('Engineering')">Engineering
                 <span id="engineeringCount"></span></button>
@@ -535,15 +722,17 @@
         <div class="modal-dialog modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                  <h3>DGCCian PRIDE <i class="fas fa-heart"></i></h3>
+                    <h3>DGCCian PRIDE <i class="fas fa-heart"></i></h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <img alt="User profile picture" class="img-fluid  mb-3" id="modalImage" src=""
-                        style="width: 250px; height: 250px; object-fit: cover;"> <hr>
-                     
-                                     <h3 class="modal-title" id="detailsModalLabel"></h3>
-                    <h4 id="modalUniversity"></h4> <hr>
+                        style="width: 250px; height: 250px; object-fit: cover;">
+                    <hr>
+
+                    <h3 class="modal-title" id="detailsModalLabel"></h3>
+                    <h4 id="modalUniversity"></h4>
+                    <hr>
                 </div>
             </div>
         </div>
@@ -565,7 +754,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="university"><i class="fas fa-university"></i>
-                                University (capital latter) </label>
+                                University (capital letter) </label>
                             <input class="form-control" id="university" type="text" required>
                         </div>
                         <div class="mb-3">
@@ -582,6 +771,170 @@
         </div>
     </div>
 
+    <div class="floating-messenger" id="open-comment-popup">
+        <img src="live-chat.png" width="35px">
+    </div>
+
+
+    <!-- Name Input Modal -->
+    <div class="modal fade" id="nameModal" tabindex="-1" aria-labelledby="nameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nameModalLabel">Enter Your Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="name-input" class="form-control" placeholder="Your Name">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-name">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comment Popup -->
+    <div id="comment-popup" class="popup">
+        <div class="popup-content">
+            <span id="close-popup" class="close">&times;</span>
+            <h2 style="color:white">Live Support</h2>
+            <hr>
+            <div id="comments">
+                <p style="color:red">⚠ Please check your internet connection and try again ⚠</p>
+            </div>
+            <input type="text" id="comment-input" placeholder="Write..." />
+            <button id="submit-comment">Post</button>
+        </div>
+    </div>
+    <!-- Firebase and Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA3eq7s6UvWPxlT05fXXesVpeSh1KnURyA",
+            authDomain: "ssc22-4f7ae.firebaseapp.com",
+            databaseURL: "https://ssc22-4f7ae-default-rtdb.firebaseio.com",
+            projectId: "ssc22-4f7ae",
+            storageBucket: "ssc22-4f7ae.firebasestorage.app",
+            messagingSenderId: "355526890032",
+            appId: "1:355526890032:web:6a19c027f419f54d75d3f5",
+            measurementId: "G-GMHS7794LY"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        if (window.location.hostname !== "localhost") {
+            getAnalytics(app);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // UI Elements
+            const commentInput = document.getElementById("comment-input");
+            const submitComment = document.getElementById("submit-comment");
+            const commentsDiv = document.getElementById("comments");
+            const commentPopup = document.getElementById("comment-popup");
+            const openPopup = document.getElementById("open-comment-popup");
+            const closePopup = document.getElementById("close-popup");
+
+            // Name Modal Elements
+            const nameModal = new bootstrap.Modal(document.getElementById("nameModal"));
+            const saveNameBtn = document.getElementById("save-name");
+
+            // Retrieve saved username
+            let userName = localStorage.getItem("userName");
+
+            // Open and Close Popup
+            openPopup.addEventListener("click", () => {
+                commentPopup.style.display = "block";
+            });
+            closePopup.addEventListener("click", () => {
+                commentPopup.style.display = "none";
+            });
+
+            // Save User Name from Modal
+            saveNameBtn.addEventListener("click", () => {
+                let inputName = document.getElementById("name-input").value.trim();
+                if (inputName) {
+                    userName = inputName;
+                    localStorage.setItem("userName", userName);
+                    nameModal.hide();
+                    // After saving the name, post the comment
+                    postComment();
+                }
+            });
+
+            // Fetch & Display Comments with Replies
+            onValue(ref(db, "profile/comments"), (snapshot) => {
+                commentsDiv.innerHTML = "";
+                snapshot.forEach((childSnapshot) => {
+                    let commentData = childSnapshot.val();
+                    let commentId = childSnapshot.key;
+
+                    let commentElement = document.createElement("div");
+                    commentElement.classList.add("comment-box");
+                    commentElement.innerHTML = `
+                        <strong>${commentData.name}</strong> 
+                        <span class="comment-date">${commentData.date}</span>
+                        <p>${commentData.comment}</p>
+                        <div class="reply-section" id="replies-${commentId}"></div>
+                    `;
+
+                    commentsDiv.prepend(commentElement);
+
+                    // Fetch Replies
+                    onValue(ref(db, `profile/comments/${commentId}/replies`), (replySnapshot) => {
+                        const repliesDiv = document.getElementById(`replies-${commentId}`);
+                        repliesDiv.innerHTML = "";
+                        replySnapshot.forEach((replyChild) => {
+                            let replyData = replyChild.val();
+                            let replyElement = document.createElement("div");
+                            replyElement.classList.add("reply-box");
+                            replyElement.innerHTML = `
+                                <strong><b>ADMIN</b> <img src="verify.png" width="12px" alt="verified"> </strong> 
+                                <span class="comment-date">${replyData.date}</span>
+                                <p>${replyData.reply}</p>
+                            `;
+                            repliesDiv.appendChild(replyElement);
+                        });
+                    });
+                });
+            });
+
+            // Post Comment
+            submitComment.addEventListener("click", () => {
+                if (!userName) {
+                    // If no name is set, show the name modal
+                    nameModal.show();
+                } else {
+                    // If name is set, post the comment
+                    postComment();
+                }
+            });
+
+            // Function to post a comment
+            function postComment() {
+                let commentText = commentInput.value.trim();
+                if (commentText && userName) {
+                    let commentData = {
+                        name: userName,
+                        comment: commentText,
+                        date: new Date().toLocaleString()
+                    };
+                    push(ref(db, "profile/comments"), commentData);
+                    commentInput.value
+ = "";
+                }
+            }
+        });
+    </script>
     <!-- Firebase and Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module">
@@ -712,6 +1065,7 @@
                 document.getElementById('universityCount').textContent = `(${universityCount})`;
 
 
+                 document.getElementById('allCount').textContent = `(${memberCount})`;
                 filterAndRenderMembers(); // Initial render of all members
 
                 // Hide loading overlay after data is rendered
@@ -779,4 +1133,4 @@
     </script>
 </body>
 
-</html>
+    </html>
